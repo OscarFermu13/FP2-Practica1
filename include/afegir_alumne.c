@@ -7,16 +7,29 @@
 
 /* INITIALIZE list */
 
-void print_menu()
+void print_menu(node_t *list)
 {
+    printf("\nLa lista contiene %d Alumnos \n", list_size(list));
     printf("----- MENU ----- \n");
-    printf("1 - Mostrar lista de Alumnos\n");
-    printf("2 - Introducir Alumno\n");
-    printf("3 - Buscar Alumno - (Por DNI)\n");
-    printf("4 - Buscar Alumno - (Por Nombre)\n");
-    printf("5 - Ver ultimo Alumno buscado\n");
-    printf("6 - Eliminar ultimo Alumno buscado\n");
+    printf("1 - Introducir Alumno\n");
+    printf("2 - Buscar Alumno - (Por DNI)\n");
+    printf("3 - Buscar Alumno - (Por Nombre)\n");
+    printf("4 - Ver ultimo Alumno buscado\n");
+    printf("5 - Eliminar ultimo Alumno buscado\n");
+    printf("6 - Ver toda la lista de Alumnos\n");
+    printf("7 - Eliminar toda la lista de Alumnos\n");
+    printf("8 - Mostrar Estadisticas\n");
     printf("0 - Salir\n");
+}
+
+void print_stats(void)
+{
+    printf("    1 - Mostrar numero de Suspendidos\n");
+    printf("    2 - Mostrar numero de Aprobados\n");
+    printf("    3 - Mostrar numero de Hombres\n");
+    printf("    4 - Mostrar numero de Mujeres\n");
+    printf("    5 - Alumno con nota mas alta\n");
+    printf("    0 - Volver\n");
 }
 
 void list_init(node_t **p_list)
@@ -40,7 +53,14 @@ size_t list_size(node_t *list)
     for (p = list; p != NULL; p = p->next)
         n++;
 
-    return n - 2;
+    if (n == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return n - 2;
+    }    
 }
 
 /* DISPLAY list as a STRING */
@@ -134,13 +154,16 @@ void addAlumne(data_t *data)
     printf("\n-- Introduce los datos del nuevo Alumno --");
 
     printf("\n Introduce el nombre del Alumno:");
-    scanf("%[^\n]%*c", data->nomAlumne);
+    scanf("%s", data->nomAlumne);
+
+    printf("\n Introduce el primer apellido del Alumno:");
+    scanf("%s", data->cognomAlumne);
 
     printf("\n Introduce el dni del Alumno (SIN LETRA):");
     scanf("%d", &data->dniNum);
-    /*
+    
 	printf("\n Introduce la letra del dni del Alumno:");
-	scanf("%s", &data->dniLetra);
+	scanf("%s", &data->dniLetra);  
 
 	printf("\n Introduce el correo del Alumno:");
 	scanf("%s", data->correu);
@@ -156,9 +179,8 @@ void addAlumne(data_t *data)
 	printf("	- Año:");
 	scanf("%d", &data->fecha.any);
 
-	printf("\n Introduce el sexo del Alumno (H/M):");
+	printf("\n Introduce el sexo del Alumno (Hombre/Mujer):");
 	scanf("%s", &data->sexe);
-*/
     scanf("%c", &enter);
     printf("\n \n");
 }

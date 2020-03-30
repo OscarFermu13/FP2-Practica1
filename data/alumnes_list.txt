@@ -1,0 +1,8 @@
+os f 8 a ssss 4.000000 01 01 0001 H
+car f 7 a ssss 3.000000 01 01 0001 H
+os f 6 a ssss 7.500000 01 01 0001 H
+car f 5 a ssss 9.000000 08 08 2001 M
+car f 4 a ssss 9.000000 08 08 2001 M
+car f 3 a ssss 5.000000 01 01 0001 H
+os f 2 a ssss 7.500000 01 01 0001 H
+car f 1 a ssss 3.000000 01 01 0001 H

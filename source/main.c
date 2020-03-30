@@ -4,15 +4,13 @@
 #include "../include/afegir_alumne.h"
 #include "../include/editar_lista.h"
 
-void main() {
+int main() {
 	node_t *list;
 	node_t *last_search;
 	bool trobat = false;
 	Alumne alumne;
-	int opcion;
-	int dni;
-	char nombre[100];
-	char enter;
+	int opcion, stats, dni;
+	char nombre[100], enter;
 
 	list_init(&list);
 
@@ -24,8 +22,9 @@ void main() {
 	alumne.dniNum = 99999999;
 	list_add_first(&list, alumne);
 
+	load_list(list);
 
-	print_menu();
+	print_menu(list);
 	scanf("%d", &opcion);
 	scanf("%c", &enter);
 
@@ -34,19 +33,12 @@ void main() {
 		switch (opcion)
 		{
 		case 1:
-			printf("\nList size: %u\n", list_size(list));
-			printf("List: ");
-			list_to_string(list);
-			printf("\n\n");
-			break;
-
-		case 2:
 			printf("\n\n---  Introducir Alumno ---\n");
 			addAlumne(&alumne);
 			list_add_search(&list, alumne, alumne.dniNum);
 			break;
 
-		case 3:
+		case 2:
 			printf("\n\n---  Buscar Alumno ---\n");
 			printf("Introduce el dni del alumno a buscar:\n");
 			scanf("%d", &dni);
@@ -54,7 +46,7 @@ void main() {
 			trobat = true;
 			break;
 
-		case 4:
+		case 3:
 			printf("\n\n---  Buscar Alumno ---\n");
 			printf("Introduce el nombre del alumno a buscar:\n");
 			scanf("%s", nombre);
@@ -62,7 +54,7 @@ void main() {
 			trobat = true;
 			break;
 
-		case 5:
+		case 4:
 			printf("\n\n---  Ver ultimo Alumno buscado ---\n");
 			if (trobat)
 			{
@@ -74,7 +66,7 @@ void main() {
 			}
 			break;
 
-		case 6:
+		case 5:
 			printf("\n\n---  Eliminar ultimo Alumno buscado ---\n");
 			if (trobat)
 			{
@@ -87,13 +79,81 @@ void main() {
 			}
 			break;
 
+		case 6:
+			printf("\n\n---  Ver toda la lista de Alumnos ---\n");
+			see_list(list);
+			break;
+
+		case 7:
+			printf("\n\n---  Eliminar toda la lista de Alumnos ---\n");
+			del_list(&list);
+			break;
+
+		case 8:
+			printf("\n\n---  MENU - ESTADISTICAS ---\n");
+			print_stats();
+			scanf("%d", &stats);
+			scanf("%c", &enter);
+
+			while (stats != 0)
+			{
+				switch (stats)
+				{
+					case 1:
+						num_suspensos(list);
+						break;
+
+					case 2:
+						num_aprobados(list);
+						break;
+
+					case 3:
+						num_hombres(list);
+						break;
+
+					case 4:
+						num_mujeres(list);
+						break;
+
+					case 5:
+						nota_alta(list);
+						break;
+
+					default:
+						break;
+				}
+
+				print_stats();
+				scanf("%d", &stats);
+				scanf("%c", &enter);
+			}
+			
+			break;
+
+		case 9:
+			printf("\nList size: %u\n", list_size(list));
+			printf("List: ");
+			list_to_string(list);
+			printf("\n\n");
+			break;
+
 		case 0:
+			save_list(list);
 			opcion = 0;
+			break;
+		
+		default:
 			break;
 		}
 
-		print_menu();
+		print_menu(list);
 		scanf("%d", &opcion);
 		scanf("%c", &enter);
 	}
+
+	if (opcion == 0)
+	{
+		save_list(list);
+	}
+	
 }

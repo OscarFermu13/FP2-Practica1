@@ -13,7 +13,8 @@ typedef struct fecha_t
 
 typedef struct data_t
 {
-    char nomAlumne[100];
+    char nomAlumne[50];
+    char cognomAlumne[50];
     int dniNum;
     char dniLetra;
     char correu[100];
@@ -31,7 +32,8 @@ typedef struct Node
 } node_t;
 
 
-void print_menu(void);
+void print_menu(node_t *list);
+void print_stats(void);
 
 void list_init(node_t **p_list);
 
