@@ -145,12 +145,13 @@ void list_add_search(node_t **p_list, data_t data, int dni)
         nuevo->next = anterior;
     }
 }
+    
 
 /* Crear DATA para Nodo */
 void addAlumne(data_t *data)
 {
     char enter;
-
+    
     printf("\n-- Introduce los datos del nuevo Alumno --");
 
     printf("\n Introduce el nombre del Alumno:");
@@ -161,9 +162,12 @@ void addAlumne(data_t *data)
 
     printf("\n Introduce el dni del Alumno (SIN LETRA):");
     scanf("%d", &data->dniNum);
-    
+
+
 	printf("\n Introduce la letra del dni del Alumno:");
-	scanf("%s", &data->dniLetra);  
+	scanf("%s", &data->dniLetra); 
+
+    comprovaDNI(data);
 
 	printf("\n Introduce el correo del Alumno:");
 	scanf("%s", data->correu);
@@ -183,4 +187,7 @@ void addAlumne(data_t *data)
 	scanf("%s", &data->sexe);
     scanf("%c", &enter);
     printf("\n \n");
+
+
 }
+

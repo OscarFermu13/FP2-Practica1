@@ -137,6 +137,13 @@ int main() {
 			printf("\n\n");
 			break;
 
+		case 10:
+			num_aprobados(list);
+			num_suspensos(list);
+			num_hombres(list);
+			num_mujeres(list);
+			break;
+
 		case 0:
 			save_list(list);
 			opcion = 0;

@@ -21,4 +21,6 @@ void num_hombres(node_t *list);
 void num_mujeres(node_t *list);
 void nota_alta(node_t *list);
 
+void comprovaDNI(data_t *list);
+
 #endif // EDITAR_LISTA_H

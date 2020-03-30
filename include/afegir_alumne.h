@@ -31,7 +31,7 @@ typedef struct Node
     struct Node *next;
 } node_t;
 
-
+void comprovaDNI (data_t *list);
 void print_menu(node_t *list);
 void print_stats(void);
 
@@ -46,6 +46,7 @@ node_t *list_new_node(data_t data, node_t *next);
 
 void list_add_first(node_t **p_list, data_t data);
 void list_add_search(node_t **p_list, data_t data, int dni);
+
 
 void addAlumne(data_t *data);
 

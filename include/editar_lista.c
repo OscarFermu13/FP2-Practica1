@@ -74,13 +74,16 @@ void save_list(node_t *list)
     fclose(file);
 }
 
+
 node_t *search_dni(node_t *list, int dni)
 {
     node_t *p;
     node_t *first;
+    data_t *data = NULL;
     int n;
 
     p = list;
+    
     n = 0;
 
     if (list == NULL)
@@ -93,6 +96,8 @@ node_t *search_dni(node_t *list, int dni)
             see_last_search(p);
             n++;
             first = p;
+            data = &p->data;
+            comprovaDNI(data);
         }
     }
 
@@ -356,4 +361,179 @@ void nota_alta(node_t *list)
 
     printf("\n");
     nota_max = search_dni(list, dni);
+}
+
+void comprovaDNI(data_t *list)
+{
+
+    data_t *p = list;
+    bool correcte = true;
+
+    switch (p->dniNum % 23)
+    {
+    case 0:
+        if (p->dniLetra != 'T')
+        {
+            correcte = false;
+        }
+        break;
+    case 1:
+        if (p->dniLetra != 'R')
+        {
+            correcte = false;
+        }
+        break;
+    case 2:
+        if (p->dniLetra != 'W')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 3:
+        if (p->dniLetra != 'A')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 4:
+        if (p->dniLetra != 'G')
+        {
+            correcte = false;
+        }
+        break;
+    case 5:
+        if (p->dniLetra != 'M')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 6:
+        if (p->dniLetra != 'Y')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 7:
+        if (p->dniLetra != 'F')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 8:
+        if (p->dniLetra != 'P')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 9:
+        if (p->dniLetra != 'D')
+        {
+            correcte = false;
+        }
+
+    case 10:
+        if (p->dniLetra != 'X')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 11:
+        if (p->dniLetra != 'B')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 12:
+        if (p->dniLetra != 'N')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 13:
+        if (p->dniLetra != 'J')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 14:
+        if (p->dniLetra != 'Z')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 15:
+        if (p->dniLetra != 'S')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 16:
+        if (p->dniLetra != 'Q')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 17:
+        if (p->dniLetra != 'V')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 18:
+        if (p->dniLetra != 'H')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 19:
+        if (p->dniLetra != 'L')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 20:
+        if (p->dniLetra != 'C')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 21:
+        if (p->dniLetra != 'K')
+        {
+            correcte = false;
+        }
+        break;
+
+    case 22:
+        if (p->dniLetra != 'E')
+        {
+            correcte = false;
+        }
+        break;
+    }
+    if (correcte == true)
+    {
+        printf("El DNI es correcte\n");
+    }
+    else
+    {
+        printf("El DNI es incorrecte\n");
+    }
 }
