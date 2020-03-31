@@ -2,9 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 
-/* Type definitions */
 #include "editar_lista.h"
 
+/* FUNCION load_list */
+/* Lee el archivo de texto externo y crea los nodos de los alumnos previmente creados */
+/* Recibe el puntero a la lista enlazada */
 void load_list(node_t *list)
 {
     Alumne alumne;
@@ -55,6 +57,9 @@ void load_list(node_t *list)
     fclose(file);
 }
 
+/* FUNCION save_list */
+/* Recorre los nodos uno a uno y los guarda en un archivo de texto externo */
+/* Recibe el puntero a la lista enlazada */
 void save_list(node_t *list)
 {
     node_t *lista = list;
@@ -74,7 +79,10 @@ void save_list(node_t *list)
     fclose(file);
 }
 
-
+/* FUNCION search_dni */
+/* Busca en la base de datos un nodo que coincida con el parametro introducido por el usuario */
+/* Recibe el puntero a la lista enlazada y el parametro de busqueda (int dni) */
+/* Devuelve el nodo encontrado, si no existe devuelve NULL */
 node_t *search_dni(node_t *list, int dni)
 {
     node_t *p;
@@ -109,6 +117,10 @@ node_t *search_dni(node_t *list, int dni)
     return first;
 }
 
+/* FUNCION search_nombre */
+/* Busca en la base de datos un nodo que coincida con el parametro introducido por el usuario */
+/* Recibe el puntero a la lista enlazada y el parametro de busqueda (char nombre) */
+/* Devuelve el nodo encontrado, si no existe devuelve NULL */
 node_t *search_nombre(node_t *list, char *nombre)
 {
     node_t *p;
@@ -144,6 +156,9 @@ node_t *search_nombre(node_t *list, char *nombre)
     return first;
 }
 
+/* FUNCION see_last_search */
+/* Muestra cual ha sido la ultima busqueda realizada por el usuario */
+/* Recibe el nodo previamente buscado */
 void see_last_search(node_t *last)
 {
     printf("Nombre: %s\n", last->data.nomAlumne);
@@ -156,6 +171,9 @@ void see_last_search(node_t *last)
     printf("\n\n");
 }
 
+/* FUNCION del_last_search */
+/* Elimina el nodo perteneciente a la ultima busqueda realizada por el usuario */
+/* Recibe el puntero a la lista enlazada y el nodo previamente buscado */
 void del_last_search(node_t *lista_total, node_t **last_search)
 {
     node_t *list = *last_search;
@@ -188,6 +206,9 @@ void del_last_search(node_t *lista_total, node_t **last_search)
     }
 }
 
+/* FUNCION see_list */
+/* Recorre uno a uno los nodos de la lista enlazada e imprime la informacion */
+/* Recibe el puntero a la lista enlazada */
 void see_list(node_t *list)
 {
     node_t *lista = list;
@@ -229,6 +250,9 @@ void see_list(node_t *list)
     }   
 }
 
+/* FUNCION del_list */
+/* Recorre uno a uno los nodos de la lista enlazada y los elimina */
+/* Recibe el puntero a la lista enlazada */
 void del_list(node_t **list)
 {
     node_t *lista = *list;
@@ -259,6 +283,9 @@ void del_list(node_t **list)
     }
 }
 
+/* FUNCION num_suspensos */
+/* Recorre uno a uno los nodos de la lista enlazada y cuenta el numero de suspensos */
+/* Recibe el puntero a la lista enlazada */
 void num_suspensos(node_t *list)
 {
     node_t *lista = list;
@@ -280,6 +307,9 @@ void num_suspensos(node_t *list)
     printf("\nEl numero de suspensos es: %d\n\n", n);
 }
 
+/* FUNCION num_aprobados */
+/* Recorre uno a uno los nodos de la lista enlazada y cuenta el numero de aprobados */
+/* Recibe el puntero a la lista enlazada */
 void num_aprobados(node_t *list)
 {
     node_t *lista = list;
@@ -300,6 +330,9 @@ void num_aprobados(node_t *list)
     printf("\nEl numero de aprobados es: %d\n\n", n);
 }
 
+/* FUNCION num_hombres */
+/* Recorre uno a uno los nodos de la lista enlazada y cuenta el numero de hombres */
+/* Recibe el puntero a la lista enlazada */
 void num_hombres(node_t *list)
 {
     node_t *lista = list;
@@ -320,6 +353,9 @@ void num_hombres(node_t *list)
     printf("\nEl numero de hombres es: %d\n\n", n);
 }
 
+/* FUNCION num_mujeres */
+/* Recorre uno a uno los nodos de la lista enlazada y cuenta el numero de mujeres */
+/* Recibe el puntero a la lista enlazada */
 void num_mujeres(node_t *list)
 {
     node_t *lista = list;
@@ -340,6 +376,9 @@ void num_mujeres(node_t *list)
     printf("\nEl numero de mujeres es: %d\n\n", n);
 }
 
+/* FUNCION nota_alta */
+/* Recorre uno a uno los nodos de la lista enlazada y imprime la informacion del alumno con la nota mas alta */
+/* Recibe el puntero a la lista enlazada */
 void nota_alta(node_t *list)
 {
     node_t *lista = list;
@@ -363,7 +402,10 @@ void nota_alta(node_t *list)
     nota_max = search_dni(list, dni);
 }
 
-void comprovaDNI(data_t *list)
+/* FUNCION comprovaDNI */
+/* Comprueba si el dni introducido es correcto respecto a la formula para calcularlo */
+/* Recibe el puntero a la lista enlazada */
+bool comprovaDNI(data_t *list)
 {
 
     data_t *p = list;
@@ -528,12 +570,6 @@ void comprovaDNI(data_t *list)
         }
         break;
     }
-    if (correcte == true)
-    {
-        printf("El DNI es correcte\n");
-    }
-    else
-    {
-        printf("El DNI es incorrecte\n");
-    }
+    
+    return correcte;
 }

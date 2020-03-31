@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 
-/* Type definitions */
 #include "afegir_alumne.h"
 
-/* INITIALIZE list */
-
+/* FUNCION print_menu */
+/* Imprime el menu principal y muestra el numero de nodos de la lista enlazada */
+/* Recibe el puntero a la lista enlazada */
 void print_menu(node_t *list)
 {
     printf("\nLa lista contiene %d Alumnos \n", list_size(list));
@@ -22,6 +22,8 @@ void print_menu(node_t *list)
     printf("0 - Salir\n");
 }
 
+/* FUNCION print_stats */
+/* Imprime el menu de estadisticas */
 void print_stats(void)
 {
     printf("    1 - Mostrar numero de Suspendidos\n");
@@ -32,18 +34,27 @@ void print_stats(void)
     printf("    0 - Volver\n");
 }
 
+/* FUNCION list_init */
+/* Crea la lista enlazada */
+/* Recibe el puntero a la lista enlazada */
 void list_init(node_t **p_list)
 {
     *p_list = NULL;
 }
 
-/* Check if list is EMPTY */
+/* FUNCION list_empty */
+/* Comprueba si la lista esta vacia o no */
+/* Recibe el puntero a la lista enlazada */
+/* Devuelve un booleano, dependiendo de si la lista esta vacia o no */
 bool list_empty(node_t *list)
 {
     return list == NULL;
 }
 
-/* SIZE of list */
+/* FUNCION list_size */
+/* Cuenta el numero de nodos que contiene la lista enlazada */
+/* Recibe el puntero a la lista enlazada */
+/* Devuelve el numero de nodos que contiene la lista */
 size_t list_size(node_t *list)
 {
     node_t *p;
@@ -63,7 +74,10 @@ size_t list_size(node_t *list)
     }    
 }
 
-/* DISPLAY list as a STRING */
+/* FUNCION list_to_string */
+/* Imprime la lista enlazada */
+/* Recibe el puntero a la lista enlazada */
+/* FUNCION DEBUG */
 void list_to_string(node_t *list)
 {
     node_t *p;
@@ -80,7 +94,10 @@ void list_to_string(node_t *list)
     printf(")");
 }
 
-/* CREATE and INITIALIZE NEW NODE */
+/* FUNCION list_new_node */
+/* Crea un nodo */
+/* Recibe los datos del nodo a crear y el nodo al que se tiene que enlazar */
+/* Devuelve el nodo creado */
 node_t *list_new_node(data_t data, node_t *next)
 {
 
@@ -105,20 +122,25 @@ node_t *list_new_node(data_t data, node_t *next)
     return p;
 }
 
+/* FUNCION list_add_first */
+/* Enlaza el nodo creado al nodo anterior */
+/* Recibe los datos del nodo a crear y el puntero a la lista enlazada */
 void list_add_first(node_t **p_list, data_t data)
 {
-    node_t *new;
+    node_t *nuevo;
 
-    new = list_new_node(data, *p_list);
-    *p_list = new;
+    nuevo = list_new_node(data, *p_list);
+    *p_list = nuevo;
 }
 
-/* AÑADIR nodo en la posicion deseada */
-
+/* FUNCION list_add_search */
+/* Enlaza el nodo creado al nodo que cumple los requisitos (Funcion que inserta nodo en medio de la lista) */
+/* Recibe los datos del nodo a crear y el puntero a la lista enlazada */
 void list_add_search(node_t **p_list, data_t data, int dni)
 {
     node_t *current = *p_list;
     node_t *anterior;
+    node_t *nuevo;
 
     while (current->data.dniNum > dni)
     {
@@ -139,18 +161,18 @@ void list_add_search(node_t **p_list, data_t data, int dni)
     }
     else
     {
-        node_t *nuevo = (node_t *)malloc(sizeof(node_t));
+        nuevo = list_new_node(data, anterior);
         current->next = nuevo;
-        nuevo->data = data;
-        nuevo->next = anterior;
     }
 }
-    
 
-/* Crear DATA para Nodo */
+/* FUNCION addAlumne */
+/* Pide al usuario que introduzca los datos del alumno a crear */
+/* Recibe la estructura de datos que define a cada alumno */
 void addAlumne(data_t *data)
 {
     char enter;
+    bool correcte;
     
     printf("\n-- Introduce los datos del nuevo Alumno --");
 
@@ -163,12 +185,20 @@ void addAlumne(data_t *data)
     printf("\n Introduce el dni del Alumno (SIN LETRA):");
     scanf("%d", &data->dniNum);
 
-
 	printf("\n Introduce la letra del dni del Alumno:");
 	scanf("%s", &data->dniLetra); 
+    correcte = comprovaDNI(data);
 
-    comprovaDNI(data);
+    while(!correcte)
+    {
+        printf("El DNI introducido no es valido, vuelva a introducir la letra.\n");
+        printf("\n Introduce la letra del dni del Alumno:");
+        scanf("%s", &data->dniLetra);
 
+        correcte = comprovaDNI(data);
+    }
+    
+    
 	printf("\n Introduce el correo del Alumno:");
 	scanf("%s", data->correu);
 
@@ -186,8 +216,15 @@ void addAlumne(data_t *data)
 	printf("\n Introduce el sexo del Alumno (Hombre/Mujer):");
 	scanf("%s", &data->sexe);
     scanf("%c", &enter);
+
+    while (data->sexe != 'H' && data->sexe != 'M')
+    {
+        printf("El caracter introducido no es valido, introduzca H o M.\n");
+        printf("\n Introduce el sexo del Alumno (Hombre/Mujer):");
+        scanf("%s", &data->sexe);
+        scanf("%c", &enter);
+    }
+
     printf("\n \n");
-
-
 }
 

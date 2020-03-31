@@ -3,6 +3,7 @@
 
 #include "afegir_alumne.h"
 
+/* Prototipos */
 void load_list(node_t *list);
 void save_list(node_t *list);
 
@@ -21,6 +22,6 @@ void num_hombres(node_t *list);
 void num_mujeres(node_t *list);
 void nota_alta(node_t *list);
 
-void comprovaDNI(data_t *list);
+bool comprovaDNI(data_t *list);
 
 #endif // EDITAR_LISTA_H

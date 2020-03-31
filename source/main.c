@@ -4,14 +4,16 @@
 #include "../include/afegir_alumne.h"
 #include "../include/editar_lista.h"
 
+/* Programa Principal */
 int main() {
 	node_t *list;
 	node_t *last_search;
 	bool trobat = false;
 	Alumne alumne;
-	int opcion, stats, dni;
-	char nombre[100], enter;
+	int opcion, stats, dniNum;
+	char nombre[100], dni[8], enter;
 
+/* Inicio de la lista enlazada */
 	list_init(&list);
 
 	strcpy(alumne.nomAlumne, "Start");
@@ -22,8 +24,10 @@ int main() {
 	alumne.dniNum = 99999999;
 	list_add_first(&list, alumne);
 
+/* Cargar la lista de alumnos previamente añadidos*/
 	load_list(list);
 
+/* Cargar el menu principal */
 	print_menu(list);
 	scanf("%d", &opcion);
 	scanf("%c", &enter);
@@ -41,8 +45,9 @@ int main() {
 		case 2:
 			printf("\n\n---  Buscar Alumno ---\n");
 			printf("Introduce el dni del alumno a buscar:\n");
-			scanf("%d", &dni);
-			last_search = search_dni(list, dni);
+			scanf("%s", dni);
+			dniNum = atoi(dni);
+			last_search = search_dni(list, dniNum);
 			trobat = true;
 			break;
 
@@ -158,6 +163,7 @@ int main() {
 		scanf("%c", &enter);
 	}
 
+/* Cuando el usuario sale del programa, se guarda la lista de alumnos en un archivo externo */
 	if (opcion == 0)
 	{
 		save_list(list);
