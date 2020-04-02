@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "afegir_alumne.h"
 
@@ -111,6 +112,7 @@ node_t *list_new_node(data_t data, node_t *next)
 
     /* Initialize new node */
     strcpy(p->data.nomAlumne, data.nomAlumne);
+    strcpy(p->data.cognomAlumne, data.cognomAlumne);
     p->data.dniNum = data.dniNum;
     p->data.dniLetra = data.dniLetra;
     strcpy(p->data.correu, data.correu);
@@ -173,7 +175,7 @@ void addAlumne(data_t *data)
 {
     char enter;
     bool correcte;
-    
+
     printf("\n-- Introduce los datos del nuevo Alumno --");
 
     printf("\n Introduce el nombre del Alumno:");
@@ -191,13 +193,15 @@ void addAlumne(data_t *data)
 
     while(!correcte)
     {
-        printf("El DNI introducido no es valido, vuelva a introducir la letra.\n");
+        printf("El DNI introducido no es valido, vuelva a introducirlo.\n");
+        printf("\n Introduce el dni del Alumno (SIN LETRA):");
+        scanf("%d", &data->dniNum);
+
         printf("\n Introduce la letra del dni del Alumno:");
         scanf("%s", &data->dniLetra);
 
         correcte = comprovaDNI(data);
-    }
-    
+    }    
     
 	printf("\n Introduce el correo del Alumno:");
 	scanf("%s", data->correu);

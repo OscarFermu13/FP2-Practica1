@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "editar_lista.h"
 
@@ -129,16 +130,16 @@ node_t *search_nombre(node_t *list, char *nombre)
     int i = 0;
 
     p = list;
-    //first = NULL;
 
     if (list == NULL)
         printf("No existe");
 
     for (p = list; p != NULL; p = p->next)
     {
-        if (strcmp(p->data.nomAlumne, nombre) == 0)
+        char *ptr = strstr(p->data.nomAlumne, nombre);
+
+        if (ptr != NULL)
         {
-            see_last_search(p);
             n++;
             if (n == 1)
             {
@@ -148,10 +149,14 @@ node_t *search_nombre(node_t *list, char *nombre)
         }
     }
 
-    if (n != 1)
-    {
+    if (n < 1)
         printf("\n\nEl alumno buscado no existe\n\n");
-    }
+
+    if (n == 1)
+        see_last_search(first); 
+
+    if (n > 1)
+        printf("\n\nSe han encontrado %d alumnos.\n\n", n);    
 
     return first;
 }
